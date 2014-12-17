@@ -76,15 +76,11 @@ For all FAQ’s, documentation, and support [go here](http://storyftw.com/suppor
 
 == Screenshots ==
 
-1.Replace any WordPress page with a story.
-
-2.Create a story & story global settings.
-
-3.Story global settings continued.
-
-4.Story page re-ordering.
-
-5.Embed a background image/gif or video.
+1. Replace any WordPress page with a story.
+2. Create a story & story global settings.
+3. Story global settings continued.
+4. Story page re-ordering.
+5. Embed a background image/gif or video.
 
 == Changelog ==
 
