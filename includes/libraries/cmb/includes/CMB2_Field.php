@@ -60,9 +60,41 @@ class CMB2_Field {
 
 		$this->args = $this->_set_field_defaults( $args['field_args'] );
 
-		// Allow an override for the field's value
-		// (assuming no one would want to save 'cmb2_field_no_override_val' as a value)
+		/**
+		 * Filter whether to override getting of meta value.
+		 * Returning a non 'cmb2_field_no_override_val' value
+		 * will effectively short-circuit the value retrieval.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param null|array|string $value       The value get_metadata() should
+		 *                                       return - a single metadata value,
+		 *                                       or an array of values.
+		 * @param int               $object_id   Object ID.
+		 * @param array             $field_args  All field arguments
+		 * @param string            $object_type Object Type
+		 * @param CMB2_Field object $field_obj   This field object
+		 */
 		$this->value = apply_filters( 'cmb2_override_meta_value', 'cmb2_field_no_override_val', $this->object_id, $this->args(), $this->object_type, $this );
+
+		/**
+		 * Filter whether to override getting of meta value.
+		 *
+		 * The dynamic portion of the hook, $field_id, refers to the current
+		 * field id paramater. Returning a non 'cmb2_field_no_override_val' value
+		 * will effectively short-circuit the value retrieval.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param null|array|string $value       The value get_metadata() should
+		 *                                       return - a single metadata value,
+		 *                                       or an array of values.
+		 * @param int               $object_id   Object ID.
+		 * @param array             $field_args  All field arguments
+		 * @param string            $object_type Object Type
+		 * @param CMB2_Field object $field_obj   This field object
+		 */
+		$this->value = apply_filters( "cmb2_override_{$this->id( true )}_meta_value", $this->value, $this->object_id, $this->args(), $this->object_type, $this );
 
 		// If no override, get our meta
 		$this->value = 'cmb2_field_no_override_val' === $this->value
@@ -169,17 +201,82 @@ class CMB2_Field {
 	public function update_data( $new_value, $single = true ) {
 		$a = $this->data_args( array( 'single' => $single ) );
 
-		$new_value = $a['repeat'] ? array_values( $new_value ) : $new_value;
+		$a[ 'value' ] = $a['repeat'] ? array_values( $new_value ) : $new_value;
 
-		if ( 'options-page' === $a['type'] ) {
-			return cmb2_options( $a['id'] )->update( $a['field_id'], $new_value, false, $a['single'] );
+		/**
+		 * Filter whether to override saving of meta value.
+		 * Returning a non-null value will effectively short-circuit the function.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param null|bool $check  Whether to allow updating metadata for the given type.
+		 * @param array $args       Array of data about current field including:
+		 *                              'type'     : Current object type
+		 *                              'id'       : Current object ID
+		 *                              'field_id' : Current Field ID
+		 *                              'repeat'   : Whether current field is repeatable
+		 *                              'single'   : Whether to save as a
+		 *                              					single meta value
+		 * @param array $field_args All field arguments
+		 * @param CMB2_Field object $field_obj This field object
+		 */
+		$override = apply_filters( 'cmb2_override_meta_save', null, $a, $this->args(), $this );
+
+		/**
+		 * Filter whether to override getting of meta value.
+		 *
+		 * The dynamic portion of the hook, $field_id, refers to the current
+		 * field id paramater. Returning a non 'cmb2_field_no_override_val' value
+		 * will effectively short-circuit the value retrieval.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param null|array|string $value       The value get_metadata() should
+		 *                                       return - a single metadata value,
+		 *                                       or an array of values.
+		 * @param int               $object_id   Object ID.
+		 * @param array             $field_args  All field arguments
+		 * @param string            $object_type Object Type
+		 * @param CMB2_Field object $field_obj   This field object
+		 */
+
+		/**
+		 * Filter whether to override saving of meta value.
+		 *
+		 * The dynamic portion of the hook, $a['field_id'], refers to the current
+		 * field id paramater. Returning a non-null value
+		 * will effectively short-circuit the function.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param null|bool $check  Whether to allow updating metadata for the given type.
+		 * @param array $args       Array of data about current field including:
+		 *                              'type'     : Current object type
+		 *                              'id'       : Current object ID
+		 *                              'field_id' : Current Field ID
+		 *                              'repeat'   : Whether current field is repeatable
+		 *                              'single'   : Whether to save as a
+		 *                              					single meta value
+		 * @param array $field_args All field arguments
+		 * @param CMB2_Field object $field_obj This field object
+		 */
+		$override = apply_filters( "cmb2_override_{$a['field_id']}_meta_save", $override, $a, $this->args(), $this );
+
+		// If override, return that
+		if ( null !== $override ) {
+			return $override;
+		}
+		// Options page handling
+		elseif ( 'options-page' === $a['type'] ) {
+			return cmb2_options( $a['id'] )->update( $a['field_id'], $a[ 'value' ], false, $a['single'] );
+		}
+		// Add metadata if not single
+		elseif ( ! $a['single'] ) {
+			return add_metadata( $a['type'], $a['id'], $a['field_id'], $a[ 'value' ], false );
 		}
 
-		if ( ! $a['single'] ) {
-			return add_metadata( $a['type'], $a['id'], $a['field_id'], $new_value, false );
-		}
-
-		return update_metadata( $a['type'], $a['id'], $a['field_id'], $new_value );
+		// Update metadata
+		return update_metadata( $a['type'], $a['id'], $a['field_id'], $a[ 'value' ] );
 	}
 
 	/**
@@ -188,11 +285,60 @@ class CMB2_Field {
 	 * @param  string $old Old value
 	 */
 	public function remove_data( $old = '' ) {
-		$a = $this->data_args();
+		$a = $this->data_args( array( 'old' => $old ) );
 
-		return 'options-page' === $a['type']
-			? cmb2_options( $a['id'] )->remove( $a['field_id'] )
-			: delete_metadata( $a['type'], $a['id'], $a['field_id'], $old );
+		/**
+		 * Filter whether to override removing of meta value.
+		 * Returning a non-null value will effectively short-circuit the function.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param null|bool $delete Whether to allow metadata deletion of the given type.
+		 * @param array $args       Array of data about current field including:
+		 *                              'type'     : Current object type
+		 *                              'id'       : Current object ID
+		 *                              'field_id' : Current Field ID
+		 *                              'repeat'   : Whether current field is repeatable
+		 *                              'single'   : Whether to save as a
+		 *                              					single meta value
+		 * @param array $field_args All field arguments
+		 * @param CMB2_Field object $field_obj This field object
+		 */
+		$override = apply_filters( 'cmb2_override_meta_remove', null, $a, $this->args(), $this );
+
+		/**
+		 * Filter whether to override removing of meta value.
+		 *
+		 * The dynamic portion of the hook, $a['field_id'], refers to the current
+		 * field id paramater. Returning a non-null value
+		 * will effectively short-circuit the function.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param null|bool $delete Whether to allow metadata deletion of the given type.
+		 * @param array $args       Array of data about current field including:
+		 *                              'type'     : Current object type
+		 *                              'id'       : Current object ID
+		 *                              'field_id' : Current Field ID
+		 *                              'repeat'   : Whether current field is repeatable
+		 *                              'single'   : Whether to save as a
+		 *                              					single meta value
+		 * @param array $field_args All field arguments
+		 * @param CMB2_Field object $field_obj This field object
+		 */
+		$override = apply_filters( "cmb2_override_{$a['field_id']}_meta_remove", $override, $a, $this->args(), $this );
+
+		// If no override, remove as usual
+		if ( null !== $override ) {
+			return $override;
+		}
+		// Option page handling
+		elseif ( 'options-page' === $a['type'] ) {
+			return cmb2_options( $a['id'] )->remove( $a['field_id'] );
+		}
+
+		// Remove metadata
+		return delete_metadata( $a['type'], $a['id'], $a['field_id'], $old );
 	}
 
 	/**
@@ -216,7 +362,7 @@ class CMB2_Field {
 	 * Checks if field has a registered sanitization callback
 	 * @since  1.0.1
 	 * @param  mixed $meta_value Meta value
-	 * @return mixed             Possibly validated meta value
+	 * @return mixed             Possibly sanitized meta value
 	 */
 	public function sanitization_cb( $meta_value ) {
 
@@ -428,22 +574,15 @@ class CMB2_Field {
 			return;
 		}
 
-		$classes    = 'cmb-type-'. str_replace( '_', '-', sanitize_html_class( $this->type() ) );
-		$classes   .= ' cmb2-id-'. str_replace( '_', '-', sanitize_html_class( $this->id() ) );
-		$classes   .= $this->args( 'repeatable' ) ? ' cmb-repeat' : '';
-		$classes   .= $this->group ? ' cmb-repeat-group-field' : '';
-		// 'inline' flag, or _inline in the field type, set to true
-		$classes   .= $this->args( 'inline' ) ? ' cmb-inline' : '';
+		$this->peform_param_callback( 'before_row' );
 
-		$this->peform_param_cb( 'before_row' );
-
-		printf( "<div class=\"cmb-row %s\">\n", $classes );
+		printf( "<div class=\"cmb-row %s\">\n", $this->row_classes() );
 
 		if ( 'title' == $this->type() || ! $this->args( 'show_names' ) ) {
 			echo "\t<div class=\"cmb-td\">\n";
 
 			if ( ! $this->args( 'show_names' ) ) {
-				$style = 'title' == $this->type() ? ' style="display:none;"' : '';
+				$style = 'title' == $this->type() ? '' : ' style="display:none;"';
 				printf( "\n<label%s for=\"%s\">%s</label>\n", $style, $this->id(), $this->args( 'name' ) );
 			}
 		} else {
@@ -455,16 +594,41 @@ class CMB2_Field {
 			echo "\n\t<div class=\"cmb-td\">\n";
 		}
 
-		$this->peform_param_cb( 'before' );
+		$this->peform_param_callback( 'before' );
 
 		$this_type = new CMB2_Types( $this );
 		$this_type->render();
 
-		$this->peform_param_cb( 'after' );
+		$this->peform_param_callback( 'after' );
 
 		echo "\n\t</div>\n</div>";
 
-		$this->peform_param_cb( 'after_row' );
+		$this->peform_param_callback( 'after_row' );
+	}
+
+	/**
+	 * Defines the classes for the current CMB field row
+	 *
+	 * @since  2.0.0
+	 * @return string Space concatenated list of classes
+	 */
+	public function row_classes() {
+		$classes = 'cmb-type-'. str_replace( '_', '-', sanitize_html_class( $this->type() ) );
+		$classes .= ' cmb2-id-'. str_replace( '_', '-', sanitize_html_class( $this->id() ) );
+		$classes .= $this->args( 'repeatable' ) ? ' cmb-repeat' : '';
+		$classes .= $this->group ? ' cmb-repeat-group-field' : '';
+		// 'inline' flag, or _inline in the field type, set to true
+		$classes .= $this->args( 'inline' ) ? ' cmb-inline' : '';
+
+		$repeat_table_rows_types = apply_filters( 'cmb2_repeat_table_row_types', array(
+			'text_url', 'text'
+		) );
+
+		if ( in_array( $this->type(), $repeat_table_rows_types ) ) {
+			$classes .= ' table-layout';
+		}
+
+		return apply_filters( 'cmb2_row_classes', $classes, $this );
 	}
 
 	/**
@@ -474,7 +638,7 @@ class CMB2_Field {
 	 * @since  2.0.0
 	 * @param  string  $param Field parameter
 	 */
-	public function peform_param_cb( $param ) {
+	public function peform_param_callback( $param ) {
 		if ( $cb = $this->maybe_callback( $param ) ) {
 			// Ok, callback is good, let's run it and bail
 			echo call_user_func( $cb, $this->args(), $this );
@@ -552,6 +716,7 @@ class CMB2_Field {
 			'repeatable'        => false,
 			'inline'            => false,
 			'on_front'          => true,
+			'show_names'        => true,
 			'date_format'       => 'm\/d\/Y',
 			'time_format'       => 'h:i A',
 			'description'       => isset( $args['desc'] ) ? $args['desc'] : '',

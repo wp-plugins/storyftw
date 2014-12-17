@@ -6,7 +6,7 @@
  * @param  string $class_name Name of the class being requested
  */
 function cmb2_autoload_classes( $class_name ) {
-	if ( class_exists( $class_name, false ) || false === stripos( $class_name, 'CMB2_' ) ) {
+	if ( class_exists( $class_name, false ) || false === strpos( $class_name, 'CMB2_' ) ) {
 		return;
 	}
 
@@ -75,6 +75,23 @@ function cmb2_get_oembed( $args = array() ) {
  */
 function cmb2_get_option( $option_key, $field_id = '' ) {
 	return cmb2_options( $option_key )->get( $field_id );
+}
+
+/**
+ * A helper function to update an option in a CMB options array
+ * @since  2.0.0
+ * @param  string  $option_key Option key
+ * @param  string  $field_id   Option array field key
+ * @param  mixed   $value      Value to update data with
+ * @param  bool    $single     Whether data should not be an array
+ * @return array               Modified options
+ */
+function cmb2_update_option( $option_key, $field_id, $value, $single = true ) {
+	if ( cmb2_options( $option_key )->update( $field_id, $value, false, $single ) ) {
+		return cmb2_options( $option_key )->set();
+	}
+
+	return false;
 }
 
 /**
