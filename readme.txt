@@ -12,7 +12,7 @@ story|ftw is a full screen, mobile first storytelling plugin. It can do text, im
 
 == Description ==
 
-[story|ftw](http://storyftw.com/) extends the publishing power of your WordPress theme. Allows you to easily tell full screen — no header, footer, or menu — stories with a rich range of content and style elements.
+[Story|ftw](http://storyftw.com/?utm_source=wordpress-repo&utm_medium=wordpress-repo&utm_term=wordpress-repo&utm_content=wordpress-repo&utm_campaign=wordpress-repo) extends the publishing power of your WordPress theme. Allows you to easily tell full screen — no header, footer, or menu — stories with a rich range of content and style elements.
 
 Publish on WordPress?  Have mobile traffic that continues to rise?  Are you fighting to keep your readers focused on your stories?
 
@@ -43,25 +43,25 @@ We plan to update the plugin often.
 
 ### So What Can It Do? Some Early Implementations…
 
-*   [IT CAN SELL](http://www.breathingcolor.com/blog/spooktacular) Tell a story and dump your users onto the product page with the re-direct feature.
+*   [IT CAN SELL](http://www.breathingcolor.com/blog/spooktacular/?utm_source=wordpress-plugin-repo&utm_medium=wordpress-plugin-repo&utm_term=wordpress-plugin-repo&utm_content=bc&utm_campaign=wordpress-plugin-repo) Tell a story and dump your users onto the product page with the re-direct feature.
 
-*   [IT CAN COOK](http://storyftw.com/bloomin-baked-apples) A native app like experience for the tablet or phone in the kitchen while cooking.
+*   [IT CAN COOK](http://storyftw.com/bloomin-baked-apples?utm_source=wordpress-plugin-repo&utm_medium=wordpress-plugin-repo&utm_term=wordpress-plugin-repo&utm_content=it%2Bcan%2Bcook&utm_campaign=wordpress-plugin-repo) A native app like experience for the tablet or phone in the kitchen while cooking.
 
-*   [IT CAN SELL REAL ESTATE](http://storyftw.com/29-lyon) Give a better home preview than redfin or zillo.  Let Realtors introduce themselves via video.
+*   [IT CAN SELL REAL ESTATE](http://storyftw.com/29-lyon?utm_source=http%3A%2F%2Fstoryftw.com%2Fbloomin-baked-apples%3Futm_source%3Dwordpress-plugin-repo%26utm_medium%3Dwordpress-plugin-repo%26utm_term%3Dwordpress-plugin-repo%26utm_content%3Dit%252Bcan%252Bcook%26utm_campaign%3Dwordpress-plugin-repo&utm_medium=http%3A%2F%2Fstoryftw.com%2Fbloomin-baked-apples%3Futm_source%3Dwordpress-plugin-repo%26utm_medium%3Dwordpress-plugin-repo%26utm_term%3Dwordpress-plugin-repo%26utm_content%3Dit%252Bcan%252Bcook%26utm_campaign%3Dwordpress-plugin-repo&utm_term=http%3A%2F%2Fstoryftw.com%2Fbloomin-baked-apples%3Futm_source%3Dwordpress-plugin-repo%26utm_medium%3Dwordpress-plugin-repo%26utm_term%3Dwordpress-plugin-repo%26utm_content%3Dit%252Bcan%252Bcook%26utm_campaign%3Dwordpress-plugin-repo&utm_content=It%2BCan%2BSell%2BRE&utm_campaign=http%3A%2F%2Fstoryftw.com%2Fbloomin-baked-apples%3Futm_source%3Dwordpress-plugin-repo%26utm_medium%3Dwordpress-plugin-repo%26utm_term%3Dwordpress-plugin-repo%26utm_content%3Dit%252Bcan%252Bcook%26utm_campaign%3Dwordpress-plugin-repo) Give a better home preview than redfin or zillo.  Let Realtors introduce themselves via video.
 
-*   [IT CAN DO LIST POSTS](http://storyftw.com/james-altucher) Keep the reader focused! Love this guy's writing.
+*   [IT CAN DO LIST POSTS](http://storyftw.com/james-altucher?utm_source=wordpress-plugin-repo&utm_medium=wordpress-plugin-repo&utm_term=wordpress-plugin-repo&utm_content=It%2Bcan%2Bdo%2Blist%2Bposts&utm_campaign=wordpress-plugin-repo) Keep the reader focused! Love this guy's writing.
 
-*   [IT CAN DO QUOTES](http://storyftw.com/happiness) Everybody loves quotes.
+*   [IT CAN DO QUOTES](http://storyftw.com/happiness?utm_source=wordpress-plugin-repo&utm_medium=wordpress-plugin-repo&utm_term=wordpress-plugin-repo&utm_content=It%2Bcan%2Bdo%2Bquotes&utm_campaign=wordpress-plugin-repo) Everybody loves quotes.
 
-*   [IT CAN DO ART](http://storyftw.com/minimalist-world-cup) Is it 2018 yet?
+*   [IT CAN DO ART](http://storyftw.com/minimalist-world-cup#minimalist-world-cup?utm_source=wordpress-plugin-repo&utm_medium=wordpress-plugin-repo&utm_term=wordpress-plugin-repo&utm_content=It%2Bcan%2BDo%2Bart&utm_campaign=wordpress-plugin-repo) Is it 2018 yet?
 
-*   [IT CAN TELL STORIES](http://storyftw.com/precocious) I want to meet this kid.
+*   [IT CAN TELL STORIES](http://storyftw.com/precocious?utm_source=wordpress-plugin-repo&utm_medium=wordpress-plugin-repo&utm_term=wordpress-plugin-repo&utm_content=it%2Bcan%2Btell%2Bstories&utm_campaign=wordpress-plugin-repo) I want to meet this kid.
 
-*   [IT CAN DO PRESENTATIONS](http://storyftw.com/cmb2-metabox-strikes-back) Justin’s presentation from WordCamp Raleigh.
+*   [IT CAN DO PRESENTATIONS](http://storyftw.com/cmb2-metabox-strikes-back?utm_source=wordpress-plugin-repo&utm_medium=wordpress-plugin-repo&utm_term=wordpress-plugin-repo&utm_content=Presentations&utm_campaign=wordpress-plugin-repo) Justin’s presentation from WordCamp Raleigh.
 
 ### So What Would You Like It To Do
 
-You tell us. Submit a [Feature Request](http://storyftw.com/feature-request).
+You tell us. Submit a [Feature Request](http://storyftw.com/feature-request?utm_source=wordpress-plugin-repo&utm_medium=wordpress-plugin-repo&utm_content=feature-request&utm_campaign=wordpress-plugin-repo).
 
 == Installation ==
 
@@ -72,7 +72,7 @@ You tell us. Submit a [Feature Request](http://storyftw.com/feature-request).
 
 == Frequently Asked Questions ==
 
-For all FAQ’s, documentation, and support [go here](http://storyftw.com/support).
+For all FAQ’s, documentation, and support [go here](http://storyftw.com/support?utm_source=wordpress-plugin-repo&utm_medium=wordpress-plugin-repo&utm_content=support-faq&utm_campaign=wordpress-plugin-repo).
 
 == Screenshots ==
 
@@ -91,3 +91,4 @@ For all FAQ’s, documentation, and support [go here](http://storyftw.com/suppor
 
 = 0.1.0 =
 First Release
+
