@@ -65,8 +65,9 @@ class StoryFTW_IconSelect {
 	}
 
 	public function get_dashicon_classes() {
+		global $wp_version;
 
-		$classes = get_transient( 'storyftw_dashicon_classes' );
+		$classes = get_transient( 'storyftw_dashicon_classes_'. $wp_version );
 		if ( $classes && ! isset( $_GET['delete-trans'] ) ) {
 			return $classes;
 		}
@@ -96,7 +97,7 @@ class StoryFTW_IconSelect {
 		}
 
 		if ( ! empty( $classes ) ) {
-			set_transient( 'storyftw_dashicon_classes', $classes, DAY_IN_SECONDS * 30 );
+			set_transient( 'storyftw_dashicon_classes_'. $wp_version, $classes, DAY_IN_SECONDS * 30 );
 		}
 
 		return $classes;

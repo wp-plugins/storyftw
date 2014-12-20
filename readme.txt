@@ -4,7 +4,7 @@ Donate link:       http://storyftw.com
 Tags:  mobile, gallery, shortcode, images, video, gifs, social, slideshow, slider, sharing, responsive, embed, content, iphone, marketing, presentation
 Requires at least: 3.8.0  
 Tested up to:      4.1.0  
-Stable tag:        0.1.0  
+Stable tag:        0.1.1  
 License:           GPLv2 or later  
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -84,10 +84,16 @@ For all FAQ’s, documentation, and support [go here](http://storyftw.com/suppor
 
 == Changelog ==
 
+= 0.1.1 =
+* Dashicon selectors cache is now based on WordPress release versions. This will allow you to use the [new hotness in WordPress 4.1](https://make.wordpress.org/core/2014/12/20/dashicons-in-wordpress-4-1/).
+
 = 0.1.0 =
 * First release
 
 == Upgrade Notice ==
+
+= 0.1.1 =
+* Dashicon selectors cache is now based on WordPress release versions. This will allow you to use the [new hotness in WordPress 4.1](https://make.wordpress.org/core/2014/12/20/dashicons-in-wordpress-4-1/).
 
 = 0.1.0 =
 First Release
