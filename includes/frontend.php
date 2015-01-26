@@ -25,6 +25,7 @@ class StoryFTW_Frontend {
 		'modernizr',
 		'fastclick',
 		'fitvids',
+		'vendor-combined',
 		'storyftw',
 	);
 
