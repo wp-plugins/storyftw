@@ -90,10 +90,11 @@ class StoryFTW_Shortcodes {
 				),
 			),
 			array(
-				'name'    => __( 'Include a share link for copying?', 'storyftw' ),
-				'id'      => 'share_link',
-				'default' => true,
-				'type'    => 'checkbox',
+				'name'     => __( 'Include a share link for copying?', 'storyftw' ),
+				'id'       => 'share_link',
+				'default'  => true,
+				'_default' => false,
+				'type'     => 'checkbox',
 			),
 		);
 
@@ -262,7 +263,12 @@ class StoryFTW_Shortcodes {
 		$defaults = array();
 
 		foreach ( $this->fields[ $type ] as $field ) {
-			$defaults[ $field['id'] ] = isset( $field['default'] ) ? $field['default'] : '';
+			$defaults[ $field['id'] ] = '';
+			if ( isset( $field['_default'] ) ) {
+				$defaults[ $field['id'] ] = $field['_default'];
+			} elseif ( isset( $field['default'] ) ) {
+				$defaults[ $field['id'] ] = $field['default'];
+			}
 		}
 
 		return shortcode_atts( $defaults, $atts, 'storyftw_' . $type );

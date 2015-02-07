@@ -4,7 +4,7 @@ Donate link:       http://storyftw.com
 Tags:  mobile, gallery, shortcode, images, video, gifs, social, slideshow, slider, sharing, responsive, embed, content, iphone, marketing, presentation
 Requires at least: 3.8.0  
 Tested up to:      4.1.0  
-Stable tag:        0.1.2  
+Stable tag:        0.1.3  
 License:           GPLv2 or later  
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -84,6 +84,9 @@ For all FAQ’s, documentation, and support [go here](http://storyftw.com/suppor
 
 == Changelog ==
 
+= 0.1.3 =
+* Bug fix: Share link couldn't be disabled in social sharing shortcode.
+
 = 0.1.2 =
 * The concatenated vendor script was not in the whitelist, causing the JS to fail under certain conditions.
 
@@ -94,6 +97,9 @@ For all FAQ’s, documentation, and support [go here](http://storyftw.com/suppor
 * First release
 
 == Upgrade Notice ==
+
+= 0.1.3 =
+* Bug fix: Share link couldn't be disabled in social sharing shortcode.
 
 = 0.1.2: The concatenated vendor script was not in the whitelist, causing the JS to fail under certain conditions.
 
