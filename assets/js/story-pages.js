@@ -1,8 +1,8 @@
 /**
- * Story|FTW - v0.1.0 - 2014-11-16
+ * story|ftw - v0.1.0 - 2015-02-28
  * http://storyftw.com
  *
- * Copyright (c) 2014;
+ * Copyright (c) 2015;
  * Licensed GPLv2+
  */
 window.StoryFTW = window.StoryFTW || {};

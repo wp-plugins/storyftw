@@ -3,7 +3,7 @@
  * Plugin Name: story|ftw
  * Plugin URI:  http://storyftw.com
  * Description: A full screen, mobile first, storytelling plugin for WordPress. Eliminate distractions and focus your reader on your story.
- * Version:     0.1.3
+ * Version:     0.1.4
  * Author:      story|ftw
  * Author URI:  http://storyftw.com
  * Donate link: http://storyftw.com
@@ -51,7 +51,7 @@ spl_autoload_register( 'storyftw_autoload_classes' );
  */
 class StoryFTW {
 
-	const VERSION = '0.1.3';
+	const VERSION = '0.1.4';
 	public $minnified_suffix = '';
 	public $cpts;
 	public $admin;

@@ -3,8 +3,8 @@ Contributors:      jtsternberg, eljefe949
 Donate link:       http://storyftw.com  
 Tags:  mobile, gallery, shortcode, images, video, gifs, social, slideshow, slider, sharing, responsive, embed, content, iphone, marketing, presentation
 Requires at least: 3.8.0  
-Tested up to:      4.1.0  
-Stable tag:        0.1.3  
+Tested up to:      4.1.1  
+Stable tag:        0.1.4  
 License:           GPLv2 or later  
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -83,6 +83,9 @@ For all FAQ’s, documentation, and support [go here](http://storyftw.com/suppor
 5. Embed a background image/gif or video.
 
 == Changelog ==
+
+= 0.1.4 =
+* Bug fix: Backround video attached to first story page will now play automatically.
 
 = 0.1.3 =
 * Bug fix: Share link couldn't be disabled in social sharing shortcode.

@@ -1,8 +1,8 @@
 /**
- * Story|FTW - v0.1.0 - 2014-11-16
+ * story|ftw - v0.1.0 - 2015-02-28
  * http://storyftw.com
  *
- * Copyright (c) 2014;
+ * Copyright (c) 2015;
  * Licensed GPLv2+
  */
 window.StoryFTW = window.StoryFTW || {};
@@ -135,12 +135,11 @@ window.StoryFTW.app = (function(window, document, $, undefined) {
 	 * returns h, s, and l in the set [0, 1].
 	 */
 	app.rgb2hsl = function( rgb, luminenceOnly ) {
-		var r = rgb.r;
-		var g = rgb.g;
-		var b = rgb.b;
-
-		r /= 255, g /= 255, b /= 255;
-		var max = Math.max( r, g, b ), min = Math.min( r, g, b );
+		var r   = rgb.r / 255;
+		var g   = rgb.g / 255;
+		var b   = rgb.b / 255;
+		var max = Math.max( r, g, b );
+		var min = Math.min( r, g, b );
 		var h, s, l = ( max + min ) / 2;
 
 		if ( max === min ){
@@ -393,17 +392,10 @@ window.StoryFTW.app = (function(window, document, $, undefined) {
 
 		cache$( '.shifty' ).removeClass( 'show-menu' );
 		app.$storyPages.removeClass( 'active' );
-		app.index = evt.newPoint; // customized flipsnap event to provide this
-		app.storyPage = app.$storyPages[ app.index ];
 
-		if ( ! app.storyPage ) {
+		if ( false === app.initPage( evt.newPoint /*customized flipsnap event to provide this*/ ) ) {
 			return;
 		}
-
-		app.$storyPage = $( app.storyPage ).addClass( 'active' );
-		app.video      = app.$storyPage.find( 'video' )[0];  // current video element
-
-		app.storyPageData = app.$storyPage.data( 'storymeta' );
 
 		if ( 'story-page-redirect' === app.storyPage.id ) {
 			window.location.href = app.$storyPage.data( 'redirect' );
@@ -421,6 +413,19 @@ window.StoryFTW.app = (function(window, document, $, undefined) {
 		app.colorOverrides();
 	};
 
+	app.initPage = function( index ) {
+		app.index = index;
+		app.storyPage = app.$storyPages[ app.index ];
+		if ( ! app.storyPage ) {
+			return false;
+		}
+
+		app.$storyPage    = $( app.storyPage ).addClass( 'active' );
+		app.video         = app.$storyPage.find( 'video' )[0];  // current video element
+		app.storyPageData = app.$storyPage.data( 'storymeta' );
+
+	};
+
 	app.init = function() {
 		log( l10n );
 
@@ -434,7 +439,7 @@ window.StoryFTW.app = (function(window, document, $, undefined) {
 			cache$( '.js-story-page-previous' ).addClass( 'hide' );
 		}
 
-		if ( window.location.hash) {
+		if ( window.location.hash ) {
 
 			cache$( '.storybook' ).css({ transition: 'none' });
 
@@ -455,6 +460,11 @@ window.StoryFTW.app = (function(window, document, $, undefined) {
 
 		if ( ! app.is_touch ) {
 			app.createVideos();
+
+			// Trigger video for first and subsequent pages
+			if ( false !== app.initPage( 0 ) ) {
+				app.triggerVideo();
+			}
 		}
 
 		cache$( 'body' )
